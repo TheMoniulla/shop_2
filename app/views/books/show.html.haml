@@ -1,0 +1,30 @@
+%p
+  %b Title:
+  = @book.title
+
+%p
+  %b Author:
+  = @book.author
+
+%p
+  %b Type:
+  = @book.book_type
+
+= link_to 'Add comment', new_book_comment_path(@book), class: 'btn btn-success'
+= link_to 'Back to list', root_path, class: 'btn btn-info'
+
+%p
+  %b Comments:
+  - @comments.each do |comment|
+    %div
+      %div
+        %b= comment.user
+        at
+        %b= comment.created_at_for_display
+        wrote:
+      %div
+        = comment.text
+        - if current_user == comment.user
+          = link_to 'Edit', edit_book_comment_path(@book, comment)
+        - if current_user == comment.user || current_user.is_admin
+          = link_to 'Delete', book_comment_path(@book, comment), method: :delete, data: {confirm: 'Are you sure?'}

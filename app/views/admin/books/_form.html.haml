@@ -1,0 +1,7 @@
+= simple_form_for [:admin, @book] do |f|
+  = f.input :title
+  = f.input :author
+  = f.input :book_type
+  = f.submit
+
+= link_to 'Back to list', admin_books_path
